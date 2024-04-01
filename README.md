@@ -4,6 +4,9 @@
 
 Donut.nvim is the Neovim screensaver that spawns a spinning donut in each opened Neovim window.
 
+**Note:** donut.nvim does not change any of the buffers, it just creates new buffers on top of existing ones
+and after you press any key it restores your buffers.
+
 ## 📺 Showcase
 
 
@@ -49,6 +52,10 @@ use({
 }
 ```
 </details>
+
+## ✅☑️ TODO
+- [ ] add colors to donuts
+- [ ] center donut horizontally inside of the window
 
 ## 🎭 Inspiration
 - [donut.c](https://www.a1k0n.net/2011/07/20/donut-math.html)
