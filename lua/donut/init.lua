@@ -1,24 +1,33 @@
--- TODO: add autocommands for window close, cursor move
--- TODO: add highlights
-
 local Donut = require("donut.donut")
 
+---@class DonutConfig
+---@field timeout integer
+
 ---@class DonutSpawn
+---@field opts DonutConfig
 ---@field win_bufs table<integer, integer> buffers to restore after killing donuts
 ---@field bufnrs integer[]
 ---@field donuts Donut[]
 ---@field win_wrap_options table<integer, boolean>
+---@field time_since_last_keypress integer
+---@field active boolean
 ---@field ns_id integer
+---@field timer uv_timer_t
 local DonutSpawn = {}
 DonutSpawn.__index = DonutSpawn
 
 function DonutSpawn.new()
-    local self = setmetatable({}, DonutSpawn)
-    self.win_bufs = {}
-    self.bufnrs = {}
-    self.donuts = {}
-    self.win_wrap_options = {}
-    self.ns_id = vim.api.nvim_create_namespace("donut")
+    local self = setmetatable({
+        opts = { timeout = 60 },
+        win_bufs = {},
+        bufnrs = {},
+        donuts = {},
+        win_wrap_options = {},
+        time_since_last_keypress = 0,
+        active = false,
+        ns_id = vim.api.nvim_create_namespace("donut"),
+        timer = nil,
+    }, DonutSpawn)
     return self
 end
 
@@ -60,6 +69,7 @@ function DonutSpawn:kill_donuts()
             vim.api.nvim_win_set_buf(win, buf)
         end)
     end
+    self.win_bufs = {}
 
     for _, donut in ipairs(self.donuts) do
         donut:stop()
@@ -69,6 +79,40 @@ function DonutSpawn:kill_donuts()
     for winnr, wrap in pairs(self.win_wrap_options) do
         vim.wo[winnr].wrap = wrap
     end
+    self.win_wrap_options = {}
 end
 
-return DonutSpawn
+function DonutSpawn:start_timer()
+    vim.on_key(function(_)
+        self.time_since_last_keypress = 0
+        if self.active then
+            self.active = false
+            self:kill_donuts()
+        end
+    end, self.ns_id)
+
+    self.timer = (vim.uv or vim.loop).new_timer()
+    self.timer:start(
+        0,
+        1000,
+        vim.schedule_wrap(function()
+            self.time_since_last_keypress = self.time_since_last_keypress + 1
+            if self.time_since_last_keypress > self.opts.timeout and not self.active then
+                self.active = true
+                self:spawn_donuts()
+            end
+        end)
+    )
+end
+
+-- expose only necessary api
+local M = {}
+
+---@param opts? DonutConfig
+function M.setup(opts)
+    local spawn = DonutSpawn.new()
+    spawn.opts = vim.tbl_deep_extend("force", spawn.opts, opts or {})
+    spawn:start_timer()
+end
+
+return M
