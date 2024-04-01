@@ -6,6 +6,7 @@ Table of Contents                               *donut.nvim-table-of-contents*
 1. Donut.nvim                                          |donut.nvim-donut.nvim|
   - Showcase                                  |donut.nvim-donut.nvim-showcase|
   - Installation                          |donut.nvim-donut.nvim-installation|
+  - TODO                                          |donut.nvim-donut.nvim-todo|
   - Inspiration                            |donut.nvim-donut.nvim-inspiration|
   - Other Neovim screensavers|donut.nvim-donut.nvim-other-neovim-screensavers|
 
@@ -16,6 +17,10 @@ Table of Contents                               *donut.nvim-table-of-contents*
   donut.c meets Neovim
 Donut.nvim is the Neovim screensaver that spawns a spinning donut in each
 opened Neovim window.
+
+**Note:** donut.nvim does not change any of the buffers, it just creates new
+buffers on top of existing ones and after you press any key it restores your
+buffers.
 
 
 SHOWCASE                                      *donut.nvim-donut.nvim-showcase*
@@ -62,6 +67,12 @@ Fulllist of options: ~
         timeout = 60,
     }
 <
+
+
+TODO                                              *donut.nvim-donut.nvim-todo*
+
+- add colors to donuts
+- center donut horizontally inside of the window
 
 
 INSPIRATION                                *donut.nvim-donut.nvim-inspiration*
