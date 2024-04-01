@@ -10,6 +10,10 @@ and after you press any key it restores your buffers.
 ## 📺 Showcase
 
 
+https://github.com/NStefan002/donut.nvim/assets/100767853/f1b538ff-e0a8-4aac-b33b-8392f12b4bae
+
+
+
 ## 📋 Installation
 
 [lazy](https://github.com/folke/lazy.nvim):
@@ -51,7 +55,7 @@ use({
     timeout = 60,
 }
 ```
-</details>
+</details>    
 
 ## ✅☑️ TODO
 - [ ] add colors to donuts
