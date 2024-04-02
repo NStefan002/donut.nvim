@@ -53,9 +53,10 @@ use({
 ```lua
 {
     timeout = 60,
+    sync_donuts = false,
 }
 ```
-</details>    
+</details>
 
 ## ✅☑️ TODO
 - [ ] add colors to donuts
