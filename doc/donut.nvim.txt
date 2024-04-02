@@ -68,6 +68,7 @@ Fulllist of options: ~
 >lua
     {
         timeout = 60,
+        sync_donuts = false,
     }
 <
 
