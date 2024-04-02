@@ -129,6 +129,10 @@ end
 function Donut:run()
     local A = 1.0
     local B = 1.0
+    if not vim.g.donut_config.sync_donuts then
+        A = math.random() * 10
+        B = math.random() * 10
+    end
     self.timer = (vim.uv or vim.loop).new_timer()
     self.timer:start(
         0,

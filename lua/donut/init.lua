@@ -2,9 +2,12 @@ local Donut = require("donut.donut")
 
 ---@class DonutConfig
 ---@field timeout integer
+---@field sync_donuts boolean
+
+---@type DonutConfig
+vim.g.donut_config = { timeout = 60, sync_donuts = false }
 
 ---@class DonutSpawn
----@field opts DonutConfig
 ---@field win_bufs table<integer, integer> buffers to restore after killing donuts
 ---@field bufnrs integer[]
 ---@field donuts Donut[]
@@ -18,7 +21,6 @@ DonutSpawn.__index = DonutSpawn
 
 function DonutSpawn.new()
     local self = setmetatable({
-        opts = { timeout = 60 },
         win_bufs = {},
         bufnrs = {},
         donuts = {},
@@ -97,7 +99,7 @@ function DonutSpawn:start_timer()
         1000,
         vim.schedule_wrap(function()
             self.time_since_last_keypress = self.time_since_last_keypress + 1
-            if self.time_since_last_keypress > self.opts.timeout and not self.active then
+            if self.time_since_last_keypress > vim.g.donut_config.timeout and not self.active then
                 self.active = true
                 self:spawn_donuts()
             end
@@ -110,8 +112,8 @@ local M = {}
 
 ---@param opts? DonutConfig
 function M.setup(opts)
+    vim.g.donut_config = vim.tbl_deep_extend("force", vim.g.donut_config, opts or {})
     local spawn = DonutSpawn.new()
-    spawn.opts = vim.tbl_deep_extend("force", spawn.opts, opts or {})
     spawn:start_timer()
 end
 
