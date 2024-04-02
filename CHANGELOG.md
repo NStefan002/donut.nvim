@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/NStefan002/donut.nvim/compare/v1.0.0...v1.1.0) (2024-04-02)
+
+
+### Features
+
+* **config:** `sync_donuts`, save opts in `vim.g` ([644c8a9](https://github.com/NStefan002/donut.nvim/commit/644c8a97389f0dd7d9aaa3b786f2056f052d5ba3))
+
 ## 1.0.0 (2024-04-01)
 
 
