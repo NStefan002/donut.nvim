@@ -1,11 +1,17 @@
 local Donut = require("donut.donut")
+local util = require("donut.util")
 
 ---@class DonutConfig
 ---@field timeout integer
 ---@field sync_donuts boolean
+---@field ignore DonutConfigIgnore
+
+---@class DonutConfigIgnore
+---@field filetype string[]
+---@field buftype string[]
 
 ---@type DonutConfig
-vim.g.donut_config = { timeout = 60, sync_donuts = false }
+vim.g.donut_config = { timeout = 60, sync_donuts = false, ignore = { filetype = {}, buftype = {} } }
 
 ---@class DonutSpawn
 ---@field win_bufs table<integer, integer> buffers to restore after killing donuts
@@ -33,35 +39,30 @@ function DonutSpawn.new()
     return self
 end
 
----@param winnr integer
----@return integer bufnr
-local function put_buf_in_win(winnr)
-    local bufnr = vim.api.nvim_create_buf(false, true)
-    vim.api.nvim_win_set_buf(winnr, bufnr)
-    return bufnr
-end
-
 function DonutSpawn:spawn_donuts()
     local opened_windows = vim.api.nvim_list_wins()
     for _, winnr in ipairs(opened_windows) do
-        -- save buffers to restore after killing donuts
-        self.win_bufs[winnr] = vim.api.nvim_win_get_buf(winnr)
+        local bufnr = vim.api.nvim_win_get_buf(winnr)
+        if not util.is_ignored(bufnr) then
+            -- save buffers to restore after killing donuts
+            self.win_bufs[winnr] = bufnr
 
-        local donut_bufnr = put_buf_in_win(winnr)
-        vim.api.nvim_set_option_value("filetype", "donut", { buf = donut_bufnr })
-        -- do not mess with the user's settings
-        self.win_wrap_options[winnr] = vim.wo[winnr].wrap
-        vim.wo[winnr].wrap = false
-        table.insert(self.bufnrs, donut_bufnr)
+            local donut_bufnr = util.put_buf_in_win(winnr)
+            vim.api.nvim_set_option_value("filetype", "donut", { buf = donut_bufnr })
+            -- do not mess with the user's settings
+            self.win_wrap_options[winnr] = vim.wo[winnr].wrap
+            vim.wo[winnr].wrap = false
+            table.insert(self.bufnrs, donut_bufnr)
 
-        -- calculate donut size
-        local win_width = vim.api.nvim_win_get_width(winnr)
-        local win_height = vim.api.nvim_win_get_height(winnr)
-        local size = math.min(win_height, math.floor(win_width / 2))
-        local donut = Donut.new(donut_bufnr, size)
-        table.insert(self.donuts, donut)
+            -- calculate donut size
+            local win_width = vim.api.nvim_win_get_width(winnr)
+            local win_height = vim.api.nvim_win_get_height(winnr)
+            local size = math.min(win_height, math.floor(win_width / 2))
+            local donut = Donut.new(donut_bufnr, size)
+            table.insert(self.donuts, donut)
 
-        donut:run()
+            donut:run()
+        end
     end
 end
 
