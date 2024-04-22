@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/NStefan002/donut.nvim/compare/v1.1.0...v1.2.0) (2024-04-22)
+
+
+### Features
+
+* **ignore:** add an option to ignore filetypes/buftypes ([049a644](https://github.com/NStefan002/donut.nvim/commit/049a6447b38840b79c831380cd332dc253626707))
+
 ## [1.1.0](https://github.com/NStefan002/donut.nvim/compare/v1.0.0...v1.1.0) (2024-04-02)
 
 
