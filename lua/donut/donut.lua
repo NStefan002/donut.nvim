@@ -1,5 +1,7 @@
 ---@class Donut
----@field win_size integer
+---@field donut_size integer
+---@field win_height integer
+---@field win_width integer
 ---@field theta_spacing number
 ---@field phi_spacing number
 ---@field illumination table
@@ -9,19 +11,23 @@
 ---@field K1 number
 ---@field ns_id integer
 ---@field bufnr integer
+---@field winnr integer
 ---@field timer uv_timer_t
 local Donut = {}
 Donut.__index = Donut
 
 ---@param bufnr integer
----@param size integer
-function Donut.new(bufnr, size)
+---@param winnr integer
+function Donut.new(bufnr, winnr)
     local self = setmetatable({}, Donut)
     self.ns_id = vim.api.nvim_create_namespace("donut")
     self.bufnr = bufnr
+    self.winnr = winnr
     self.timer = nil
 
-    self.win_size = size
+    self.win_width = vim.api.nvim_win_get_width(winnr)
+    self.win_height = vim.api.nvim_win_get_height(winnr)
+    self.donut_size = math.min(self.win_height, math.floor(self.win_width / 2))
     self.theta_spacing = 0.07
     self.phi_spacing = 0.02
     self.illumination = {
@@ -41,7 +47,7 @@ function Donut.new(bufnr, size)
     self.R1 = 1
     self.R2 = 2
     self.K2 = 5
-    self.K1 = self.win_size * self.K2 * 3 / (8 * (self.R1 + self.R2))
+    self.K1 = self.donut_size * self.K2 * 3 / (8 * (self.R1 + self.R2))
     return self
 end
 
@@ -53,18 +59,18 @@ function Donut:render_frame(A, B)
     local cos_B, sin_B = math.cos(B), math.sin(B)
 
     local output = {}
-    for _ = 1, self.win_size do
+    for _ = 1, self.donut_size do
         local tmp = {}
-        for _ = 1, self.win_size do
+        for _ = 1, self.donut_size do
             table.insert(tmp, " ")
         end
         table.insert(output, tmp)
     end
 
     local zbuffer = {}
-    for _ = 1, self.win_size do
+    for _ = 1, self.donut_size do
         local tmp = {}
-        for _ = 1, self.win_size do
+        for _ = 1, self.donut_size do
             table.insert(tmp, 0)
         end
         table.insert(zbuffer, tmp)
@@ -88,8 +94,8 @@ function Donut:render_frame(A, B)
             local z = self.K2 + cos_A * circle_x * sin_phi + circle_y * sin_A
             local ooz = 1 / z
 
-            local xp = math.floor(self.win_size / 2 + self.K1 * ooz * x) + 1
-            local yp = math.floor(self.win_size / 2 - self.K1 * ooz * y) + 1
+            local xp = math.floor(self.donut_size / 2 + self.K1 * ooz * x) + 1
+            local yp = math.floor(self.donut_size / 2 - self.K1 * ooz * y) + 1
 
             local L1 = cos_phi * cos_theta * sin_B
                 - cos_A * cos_theta * sin_phi
@@ -115,6 +121,7 @@ function Donut:render_frame(A, B)
     return output
 end
 
+---@param frame table
 function Donut:display_frame(frame)
     local output = {}
     for i = 1, #frame do
@@ -123,7 +130,9 @@ function Donut:display_frame(frame)
             output[i] = string.format("%s%s ", output[i], frame[i][j])
         end
     end
-    vim.api.nvim_buf_set_lines(self.bufnr, 0, #output, false, output)
+    if self.bufnr then
+        vim.api.nvim_buf_set_lines(self.bufnr, 0, #output, false, output)
+    end
 end
 
 function Donut:run()
@@ -152,10 +161,13 @@ function Donut:stop()
         self.timer = nil
     end
     if self.bufnr ~= nil and vim.api.nvim_buf_is_valid(self.bufnr) then
-        vim.schedule(function()
-            vim.api.nvim_buf_delete(self.bufnr, { force = true })
-        end)
+        vim.api.nvim_buf_delete(self.bufnr, { force = true })
     end
+    if self.winnr ~= nil and vim.api.nvim_win_is_valid(self.winnr) then
+        vim.api.nvim_win_close(self.winnr, true)
+    end
+    self.bufnr = nil
+    self.winnr = nil
 end
 
 return Donut
