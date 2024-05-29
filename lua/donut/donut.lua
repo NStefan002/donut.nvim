@@ -130,8 +130,17 @@ function Donut:display_frame(frame)
             output[i] = string.format("%s%s ", output[i], frame[i][j])
         end
     end
+    local vertical_padding = {}
+    for _ = 1, (self.win_height - #output) / 2 do
+        table.insert(vertical_padding, " ")
+    end
+    local horizontal_padding = string.rep(" ", (self.win_width - #output[1]) / 2)
+    for i = 1, #output do
+        output[i] = string.format("%s%s", horizontal_padding, output[i])
+    end
     if self.bufnr then
-        vim.api.nvim_buf_set_lines(self.bufnr, 0, #output, false, output)
+        vim.api.nvim_buf_set_lines(self.bufnr, 0, #vertical_padding, false, vertical_padding)
+        vim.api.nvim_buf_set_lines(self.bufnr, #vertical_padding, -1, false, output)
     end
 end
 
