@@ -18,10 +18,10 @@ Table of Contents                               *donut.nvim-table-of-contents*
 Donut.nvim is the Neovim screensaver that spawns a spinning donut in each
 opened Neovim window.
 
-**Note:** donut.nvim does not change any of the buffers, it just creates new
-buffers on top of existing ones and after you press any key it restores your
-buffers.
 
+  [!NOTE]
+  donut.nvim does not change any of the buffers, it just creates new buffers on
+  top of existing ones and after you press any key it restores your buffers.
 
 SHOWCASE                                      *donut.nvim-donut.nvim-showcase*
 
