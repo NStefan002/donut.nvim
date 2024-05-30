@@ -7,6 +7,7 @@ Table of Contents                               *donut.nvim-table-of-contents*
   - Showcase                                  |donut.nvim-donut.nvim-showcase|
   - Installation                          |donut.nvim-donut.nvim-installation|
   - Configuration                        |donut.nvim-donut.nvim-configuration|
+  - How does it work?                |donut.nvim-donut.nvim-how-does-it-work?|
   - Inspiration                            |donut.nvim-donut.nvim-inspiration|
   - Other Neovim screensavers|donut.nvim-donut.nvim-other-neovim-screensavers|
 
@@ -79,6 +80,14 @@ want.
 >lua
     vim.g.donut_config = { timeout = 30, sync_donuts = false }
 <
+
+
+HOW DOES IT WORK?                    *donut.nvim-donut.nvim-how-does-it-work?*
+
+- After the timeout, donut.nvim will spawn a donut for each opened window.
+- When you press any key, donut.nvim will clear all the donuts and restore your buffers.
+- If you have `sync_donuts` set to `true`, the donuts will spin in sync.
+- If you want to manually trigger the donuts, you can call `:Donut` command.
 
 
 INSPIRATION                                *donut.nvim-donut.nvim-inspiration*
