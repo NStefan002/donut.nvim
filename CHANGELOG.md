@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/NStefan002/donut.nvim/compare/v2.0.0...v2.1.0) (2024-05-30)
+
+
+### Features
+
+* set `timeout` to `0` to disable donuts ([#5](https://github.com/NStefan002/donut.nvim/issues/5)) ([5b48a96](https://github.com/NStefan002/donut.nvim/commit/5b48a96e15fea83cb68f86eeea2088894957f1ba))
+
 ## [2.0.0](https://github.com/NStefan002/donut.nvim/compare/v1.2.0...v2.0.0) (2024-05-30)
 
 
