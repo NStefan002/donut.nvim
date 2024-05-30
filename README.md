@@ -11,7 +11,10 @@ and after you press any key it restores your buffers.
 
 ## 📺 Showcase
 
-https://github.com/NStefan002/donut.nvim/assets/100767853/f1b538ff-e0a8-4aac-b33b-8392f12b4bae
+
+https://github.com/NStefan002/donut.nvim/assets/100767853/3b60a4ef-5517-4195-a6d2-dda32dde5785
+
+
 
 ## 📋 Installation
 
