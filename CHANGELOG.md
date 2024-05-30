@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.0.0](https://github.com/NStefan002/donut.nvim/compare/v1.2.0...v2.0.0) (2024-05-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* use floating windows, remove some options
+
+### Features
+
+* add `Donut` command ([2b322d4](https://github.com/NStefan002/donut.nvim/commit/2b322d42c5d21717226fe7256ec0a0b02f689b30))
+* **donut:** center donut horizontally/vertically ([0805da7](https://github.com/NStefan002/donut.nvim/commit/0805da7f04fa0706be00d3a3075404d46e02c241))
+* no need to call `setup`, lazy loading done by default ([0c8b06a](https://github.com/NStefan002/donut.nvim/commit/0c8b06ab6d4d283f4a395c7d81a65626ba9eb81c))
+* use floating windows, remove some options ([3bd7b09](https://github.com/NStefan002/donut.nvim/commit/3bd7b09f68af3712ba5d4e24beacef24a2df2cbd))
+
 ## [1.2.0](https://github.com/NStefan002/donut.nvim/compare/v1.1.0...v1.2.0) (2024-04-22)
 
 
