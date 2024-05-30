@@ -58,7 +58,7 @@ If you want to change the default configuration, you can call the `setup` functi
 
 ```lua
 require("donut").setup({
-    timeout = 60,
+    timeout = 60, -- set to 0 to disable (can still be triggered manually with :Donut command)
     sync_donuts = true,
 }
 ```
