@@ -73,6 +73,9 @@ function DonutSpawn:start_timer()
         0,
         1000,
         vim.schedule_wrap(function()
+            if vim.g.donut_config.timeout == 0 then
+                return
+            end
             self.time_since_last_keypress = self.time_since_last_keypress + 1
             if self.time_since_last_keypress > vim.g.donut_config.timeout and not self.active then
                 self:spawn_donuts()
