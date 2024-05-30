@@ -65,6 +65,13 @@ or you can just set `vim.g.donut_config` to a table with the configuration you w
 vim.g.donut_config = { timeout = 30, sync_donuts = false }
 ```
 
+## ❓ How does it work?
+
+-   After the timeout, donut.nvim will spawn a donut for each opened window.
+-   When you press any key, donut.nvim will clear all the donuts and restore your buffers.
+-   If you have `sync_donuts` set to `true`, the donuts will spin in sync.
+-   If you want to manually trigger the donuts, you can call `:Donut` command.
+
 
 ## 🎭 Inspiration
 
