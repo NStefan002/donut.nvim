@@ -23,6 +23,7 @@ function DonutSpawn.new()
 end
 
 function DonutSpawn:spawn_donuts()
+    self.active = true
     local opened_windows = vim.api.nvim_list_wins()
     for _, winnr in ipairs(opened_windows) do
         local position = vim.api.nvim_win_get_position(winnr)
@@ -53,15 +54,16 @@ function DonutSpawn:kill_donuts()
     for _, donut in ipairs(self.donuts) do
         donut:stop()
     end
+    self.donuts = {}
     self.bufnrs = {}
     self.winnrs = {}
+    self.active = false
 end
 
 function DonutSpawn:start_timer()
     vim.on_key(function()
         self.time_since_last_keypress = 0
         if self.active then
-            self.active = false
             self:kill_donuts()
         end
     end, self.ns_id)
@@ -73,7 +75,6 @@ function DonutSpawn:start_timer()
         vim.schedule_wrap(function()
             self.time_since_last_keypress = self.time_since_last_keypress + 1
             if self.time_since_last_keypress > vim.g.donut_config.timeout and not self.active then
-                self.active = true
                 self:spawn_donuts()
             end
         end)

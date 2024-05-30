@@ -5,9 +5,6 @@
 ---@type DonutConfig
 vim.g.donut_config = { timeout = 300, sync_donuts = false }
 
-local spawn = require("donut.donut_spawn").new()
-spawn:start_timer()
-
 -- expose only necessary api
 local M = {}
 
