@@ -6,7 +6,7 @@ Table of Contents                               *donut.nvim-table-of-contents*
 1. Donut.nvim                                          |donut.nvim-donut.nvim|
   - Showcase                                  |donut.nvim-donut.nvim-showcase|
   - Installation                          |donut.nvim-donut.nvim-installation|
-  - TODO                                          |donut.nvim-donut.nvim-todo|
+  - Configuration                        |donut.nvim-donut.nvim-configuration|
   - Inspiration                            |donut.nvim-donut.nvim-inspiration|
   - Other Neovim screensavers|donut.nvim-donut.nvim-other-neovim-screensavers|
 
@@ -31,29 +31,20 @@ https://github.com/NStefan002/donut.nvim/assets/100767853/f1b538ff-e0a8-4aac-b33
 
 INSTALLATION                              *donut.nvim-donut.nvim-installation*
 
+
+  [!NOTE]
+  - Neovim version >= 0.9.5 is required.
+  - No need to call `setup` function, donut.nvim is ready to use out of the box.
+  - Only call `setup` function if you want to change the default configuration.
+  - No need to lazy load it via Lazy.nvim, donut.nvim lazy loads by default.
 lazy <https://github.com/folke/lazy.nvim>
 
 >lua
     {
         "NStefan002/donut.nvim",
-        event = "VeryLazy",
-        opts = {
-            -- your config
-        },
+        version = "*",
+        lazy = false,
     }
-<
-
-packer <https://github.com/wbthomason/packer.nvim>
-
->lua
-    use({
-        "NStefan002/donut.nvim",
-        config = function()
-            require("donut").setup({
-                -- your config
-            })
-        end,
-    })
 <
 
 rocks.nvim <https://github.com/nvim-neorocks/rocks.nvim>
@@ -61,22 +52,33 @@ rocks.nvim <https://github.com/nvim-neorocks/rocks.nvim>
 `:Rocks install donut.nvim`
 
 
-CONFIGURATION ~
+CONFIGURATION                            *donut.nvim-donut.nvim-configuration*
 
-Fulllist of options: ~
+Default configuration ~
 
 >lua
     {
-        timeout = 60,
+        timeout = 300,
         sync_donuts = false,
     }
 <
 
+If you want to change the default configuration, you can call the `setup`
+function.
 
-TODO                                              *donut.nvim-donut.nvim-todo*
+>lua
+    require("donut").setup({
+        timeout = 60,
+        sync_donuts = true,
+    }
+<
 
-- add colors to donuts
-- center donut horizontally inside of the window
+or you can just set `vim.g.donut_config` to a table with the configuration you
+want.
+
+>lua
+    vim.g.donut_config = { timeout = 30, sync_donuts = false }
+<
 
 
 INSPIRATION                                *donut.nvim-donut.nvim-inspiration*
