@@ -85,4 +85,4 @@ vim.g.donut_config = { timeout = 30, sync_donuts = false }
 -   [zone](https://github.com/tamton-aquib/zone.nvim)
 -   [cellular-automaton](https://github.com/Eandrju/cellular-automaton.nvim)
 -   [drop](https://github.com/folke/drop.nvim)
--   [I'm waiting for this one](https://www.reddit.com/r/neovim/comments/1bsebep/raining_inside_neovim/)
+-   ~~[I'm waiting for this one](https://www.reddit.com/r/neovim/comments/1bsebep/raining_inside_neovim/)~~ [rain](https://github.com/tamton-aquib/stuff.nvim/blob/main/lua/rain.lua) module from [stuff.nvim](https://github.com/tamton-aquib/stuff.nvim)
