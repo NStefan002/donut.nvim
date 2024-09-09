@@ -1,4 +1,4 @@
-*donut.nvim.txt*         For Neovim >= 0.9.5         Last change: 2024 June 04
+*donut.nvim.txt*       For Neovim >= 0.9.5      Last change: 2024 September 09
 
 ==============================================================================
 Table of Contents                               *donut.nvim-table-of-contents*
