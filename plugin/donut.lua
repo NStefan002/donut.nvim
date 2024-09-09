@@ -5,7 +5,8 @@ end
 vim.g.donut_loaded = true
 
 require("donut").setup()
-local spawn = require("donut.donut_spawn").new()
+local spawn = require("donut.donut_spawn")
+spawn:create_autocmds()
 spawn:start_timer()
 
 vim.api.nvim_create_user_command("Donut", function(event)

@@ -103,10 +103,7 @@ function Donut:render_frame(A, B)
                 + cos_B * (cos_A * sin_theta - cos_theta * sin_A * sin_phi)
 
             if L1 > 0 then
-                if zbuffer[xp] == nil or zbuffer[xp][yp] == nil then
-                    print(xp, yp)
-                end
-                if ooz > zbuffer[xp][yp] then
+                if zbuffer[xp] ~= nil and zbuffer[xp][yp] ~= nil and ooz > zbuffer[xp][yp] then
                     zbuffer[xp][yp] = ooz
                     local luminance_index = math.floor(L1 * 8) + 1
                     output[xp][yp] = self.illumination[luminance_index]

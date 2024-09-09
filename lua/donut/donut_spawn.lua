@@ -84,4 +84,25 @@ function DonutSpawn:start_timer()
     )
 end
 
-return DonutSpawn
+function DonutSpawn:create_autocmds()
+    local autocmd = vim.api.nvim_create_autocmd
+    local augroup = vim.api.nvim_create_augroup
+    local grp = augroup("SpeedTyperUI", {})
+
+    autocmd({ "VimResized" }, {
+        group = grp,
+        callback = function()
+            if not self.active then
+                return
+            end
+            vim.schedule(function()
+                self:kill_donuts()
+            end)
+            vim.schedule(function()
+                self:spawn_donuts()
+            end)
+        end,
+    })
+end
+
+return DonutSpawn.new()
