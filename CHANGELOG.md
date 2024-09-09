@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/NStefan002/donut.nvim/compare/v2.1.0...v2.2.0) (2024-09-09)
+
+
+### Features
+
+* **spawn:** resize donuts when editor gets resized ([a1e0add](https://github.com/NStefan002/donut.nvim/commit/a1e0add4a0a954c032543affc8ac39788562623e))
+
 ## [2.1.0](https://github.com/NStefan002/donut.nvim/compare/v2.0.0...v2.1.0) (2024-05-30)
 
 
