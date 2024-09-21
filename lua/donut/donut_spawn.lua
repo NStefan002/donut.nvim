@@ -6,6 +6,8 @@
 ---@field active boolean
 ---@field ns_id integer
 ---@field timer uv_timer_t
+---@field _min_donut_width integer
+---@field _min_donut_height integer
 local DonutSpawn = {}
 DonutSpawn.__index = DonutSpawn
 
@@ -18,13 +20,19 @@ function DonutSpawn.new()
         active = false,
         ns_id = vim.api.nvim_create_namespace("donut"),
         timer = nil,
+        _min_donut_width = 15,
+        _min_donut_height = 9,
     }, DonutSpawn)
     return self
 end
 
 function DonutSpawn:spawn_donuts()
     self.active = true
-    local opened_windows = vim.api.nvim_list_wins()
+    local opened_windows = vim.tbl_filter(function(win_id)
+        local width = vim.api.nvim_win_get_width(win_id)
+        local height = vim.api.nvim_win_get_height(win_id)
+        return width > self._min_donut_width and height > self._min_donut_height
+    end, vim.api.nvim_list_wins())
     for _, winnr in ipairs(opened_windows) do
         local position = vim.api.nvim_win_get_position(winnr)
         local width = vim.api.nvim_win_get_width(winnr)
