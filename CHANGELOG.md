@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/NStefan002/donut.nvim/compare/v2.2.0...v2.2.1) (2024-09-21)
+
+
+### Bug Fixes
+
+* interaction with colorful-winsep.nvim (see [#9](https://github.com/NStefan002/donut.nvim/issues/9)) ([d8269c4](https://github.com/NStefan002/donut.nvim/commit/d8269c4b3c2b3084ee95be3d535dacf42850ab9f))
+
 ## [2.2.0](https://github.com/NStefan002/donut.nvim/compare/v2.1.0...v2.2.0) (2024-09-09)
 
 
